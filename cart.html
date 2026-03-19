@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>购物车</title>
+<style>
+body{
+  background:#FFE6EF;
+  display:flex;
+  justify-content:center;
+  padding:30px 0;
+  margin:0;
+  min-height:100vh;
+  background-image:url("https://haowallpaper.com/link/common/file/getCroppingImg/17950582161329536"),
+                   radial-gradient(circle at 10% 30%, #FFD9E8 0%, transparent 30%),
+                   radial-gradient(circle at 90% 70%, #FFD0E4 0%, transparent 35%),
+                   repeating-linear-gradient(45deg, rgba(255,200,220,0.1) 0px, rgba(255,200,220,0.1) 10px, transparent 10px, transparent 20px);
+  background-size:cover;
+  background-position:center;
+  background-attachment:fixed;
+  background-repeat:no-repeat;
+}
+.cart{
+  background:white;
+  width:500px;
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 10px 25px rgba(255,120,170,0.2);
+  backdrop-filter:blur(2px);
+  border:1px solid rgba(255,255,255,0.7);
+}
+.cart-list{
+  list-style:none;
+  padding:0;
+}
+.cart-list li{
+  padding:10px;
+  border-bottom:1px solid #FFD9E8;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.cart-list li:last-child{
+  border-bottom:none;
+}
+.delete-item{
+  background:#FF9ECF;
+  color:white;
+  border:none;
+  border-radius:50%;
+  width:24px;
+  height:24px;
+  cursor:pointer;
+  font-size:16px;
+  line-height:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:all 0.2s;
+}
+.delete-item:hover{
+  background:#ff7ab0;
+  transform:scale(1.1);
+}
+.back{
+  background:#FF9ECF;
+  color:white;
+  border:none;
+  padding:10px 25px;
+  border-radius:20px;
+  cursor:pointer;
+  margin-top:20px;
+  transition:all 0.2s;
+}
+.back:hover{
+  background:#ff7ab0;
+  transform:translateY(-2px);
+  box-shadow:0 5px 15px rgba(255,120,170,0.4);
+}
+</style>
+</head>
+<body>
+<div class="cart">
+  <h2>我的购物车</h2>
+  <ul class="cart-list" id="cartList"></ul>
+  <button class="back" onclick="location.href='index.html'">返回商城</button>
+</div>
+<script>
+function getCart(){
+  let d=localStorage.getItem("cart");
+  return d?JSON.parse(d):[];
+}
+function saveCart(cart){
+  localStorage.setItem("cart",JSON.stringify(cart));
+}
+function load(){
+  let list=document.getElementById("cartList");
+  let data=getCart();
+  list.innerHTML="";
+  data.forEach((item,index)=>{
+    let li=document.createElement("li");
+    let nameSpan=document.createElement("span");
+    nameSpan.innerText=item.name;
+    let delBtn=document.createElement("button");
+    delBtn.innerText="×";
+    delBtn.className="delete-item";
+    delBtn.onclick=function(){
+      data.splice(index,1);
+      saveCart(data);
+      load();
+    };
+    li.appendChild(nameSpan);
+    li.appendChild(delBtn);
+    list.appendChild(li);
+  });
+}
+window.onload=load;
+</script>
+</body>
+</html>
