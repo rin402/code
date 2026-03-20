@@ -11,7 +11,7 @@ body{
     display:flex;
     justify-content:center;
     align-items:center;
-    background:url(https://haowallpaper.com/link/common/file/getCroppingImg/17950582233484672) center center / cover no-repeat;
+    background:url(https://i.imgur.com/9kXQ9fY.jpg) center center / cover no-repeat;
     font-family:"Microsoft YaHei";
 }
 .login-card{
@@ -67,9 +67,14 @@ button:hover{
 function login(){
     let user=document.getElementById("user").value;
     let pwd=document.getElementById("pwd").value;
-    if(user&&pwd) location.href="index.html";
-    else alert("请输入账号和密码！");
+    if(user&&pwd) {
+        // 跳转到商城页面
+        location.href="shop.html";
+    } else {
+        alert("请输入账号和密码！");
+    }
 }
 </script>
 </body>
 </html>
+
